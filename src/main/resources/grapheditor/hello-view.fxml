@@ -1,16 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="grapheditor.controller.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      nodeOrientation="LEFT_TO_RIGHT" prefHeight="550.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/18"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="grapheditor.controller.Controller">
+    <children>
+        <VBox fillWidth="false" prefHeight="431.0" prefWidth="155.0" style="-fx-background-color: #898989;">
+            <children>
+                <Text fx:id="NodeNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="Node number:" wrappingWidth="142"
+                      VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets bottom="5.0"/>
+                    </VBox.margin>
+                </Text>
+                <TextField fx:id="nodeNumberField" prefHeight="26.0" prefWidth="76.0" text="15" VBox.vgrow="NEVER"/>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edges:" wrappingWidth="122.13670921325684">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="15.0"/>
+                    </VBox.margin>
+                </Text>
+                <TextArea fx:id="edgesField" prefHeight="133.0" prefWidth="143.0"
+                          text="1 2 1 3 1 4 1 5 2 3 2 4 2 5 3 4 3 5 4 5 5 6 6 7 7 8 8 9 9 10"/>
+                <HBox alignment="TOP_CENTER" prefHeight="52.0" prefWidth="143.0">
+                    <children>
+                        <Button fx:id="generate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                                onAction="#handleGenerate" text="Generate" textAlignment="CENTER"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="15.0" top="15.0"/>
+                    </padding>
+                </HBox>
+                <TitledPane animated="false" text="fizika">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                    <children>
+                                        <Label prefHeight="18.0" prefWidth="200.0" text="лоховость максима:"
+                                               textOverrun="CENTER_WORD_ELLIPSIS" VBox.vgrow="ALWAYS">
+                                            <font>
+                                                <Font size="10.0"/>
+                                            </font>
+                                        </Label>
+                                        <Slider fx:id="magnetizeSlider" max="1000.0"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+                <TitledPane animated="false" layoutX="20.0" layoutY="295.0" text="апиранс">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                    </content>
+                </TitledPane>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </VBox>
+        <VBox fx:id="canvasContainer" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+            <children>
+                <Canvas fx:id="canvas" height="200.0" onMouseClicked="#onDoubleClick" onMouseDragged="#lMouseDragged"
+                        onMousePressed="#lMousePressed" onMouseReleased="#lMouseReleased" width="200.0"
+                        VBox.vgrow="ALWAYS"/>
+            </children>
+        </VBox>
+    </children>
+</HBox>
