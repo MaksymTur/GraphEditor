@@ -213,12 +213,51 @@
                                                    </font>
                                                 </Label>
                                                 <Slider fx:id="nodeRadiusSlider" min="1.0" />
-                                                <Label text="Node mass" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                <HBox>
+                                                   <children>
+                                                      <Label text="Chromatic" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <CheckBox fx:id="chromaticCheckBox" mnemonicParsing="false" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox>
+                                                   <children>
+                                                      <Label text="Numbers" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <CheckBox fx:id="showNumbersCheckBox" mnemonicParsing="false" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox>
+                                                   <children>
+                                                      <Label text="Borders" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <CheckBox fx:id="nodeBordersCheckBox" mnemonicParsing="false" />
+                                                   </children>
+                                                </HBox>
+                                                <Label text="Trace size" textOverrun="CENTER_WORD_ELLIPSIS">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="massSlider1" max="10000.0" />
+                                                <Slider fx:id="traceSizeSlider" min="1.0" />
                                              </children>
                                           </VBox>
                                        </content>
@@ -234,24 +273,25 @@
                                        <content>
                                           <VBox>
                                              <children>
-                                                <Label text="Edge length" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                <Label text="Edge width" textOverrun="CENTER_WORD_ELLIPSIS">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="edgeLenSlider1" max="10000.0" min="1.0" />
-                                                <Label text="Dumping constant" textOverrun="CENTER_WORD_ELLIPSIS">
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <Slider fx:id="dumpingSlider1" max="1000.0" min="1.0" />
-                                                <Label text="Spring start" textOverrun="CENTER_WORD_ELLIPSIS">
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <Slider fx:id="springSlider1" max="10000.0" min="1.0" />
+                                                <Slider fx:id="edgeWidthSlider" max="10000.0" min="1.0" />
+                                                <HBox>
+                                                   <children>
+                                                      <Label text="Show edges" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <CheckBox fx:id="showEdgesCheckBox" mnemonicParsing="false" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -5,6 +5,7 @@ import grapheditor.model.Graph;
 import grapheditor.model.Node;
 import grapheditor.view.View;
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -66,7 +67,19 @@ public class Controller {
     //////Node
     @FXML
     private Slider nodeRadiusSlider;
+    @FXML
+    private CheckBox chromaticCheckBox;
+    @FXML
+    private CheckBox showNumbersCheckBox;
+    @FXML
+    private CheckBox nodeBordersCheckBox;
+    @FXML
+    private Slider traceSizeSlider;
     //////Edge
+    @FXML
+    private Slider edgeWidthSlider;
+    @FXML
+    private CheckBox showEdgesCheckBox;
     //////Other
     @FXML
     private Slider recalcsPerFrameSlider;
@@ -90,8 +103,8 @@ public class Controller {
         List<Edge> edges = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < nodeNumber; i++) {
-            nodes.add(new Node(random.nextInt((int) canvas.getWidth()+1), random.nextInt((int) canvas.getHeight()+1),
-                    Graph.defaultNodeMass, Graph.defaultNodeMagnetism));
+            nodes.add(new Node(i, random.nextInt((int) canvas.getWidth()+1), random.nextInt((int) canvas.getHeight()+1),
+                    Graph.defaultNodeMass, Graph.defaultNodeMagnetism, Graph.nodeRadius));
         }
         for (int i = 0; i < edgesField.getText().length(); i++) {
             int start = Integer.parseInt(edgesField.getText().substring(i, i = getNextBlank(edgesField.getText(), i)));
@@ -177,11 +190,15 @@ public class Controller {
         bounceCheckBox.selectedProperty().bindBidirectional(Graph.toBounce);
         energyKeepSlider.valueProperty().bindBidirectional(Graph.energyKeep);
         recalcsPerFrameSlider.valueProperty().bindBidirectional(recalcsPerFrame);
-        //bind maxSpeed to recalcsPerFrame * 1000
         recalcsPerFrameSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             Node.maxSpeed.set(newValue.doubleValue() * 100);
         });
-
+        traceSizeSlider.valueProperty().bindBidirectional(View.traceSize);
+        edgeWidthSlider.valueProperty().bindBidirectional(View.edgeWidth);
+        showEdgesCheckBox.selectedProperty().bindBidirectional(View.showEdges);
+        chromaticCheckBox.selectedProperty().bindBidirectional(View.chromatic);
+        showNumbersCheckBox.selectedProperty().bindBidirectional(View.showNumbers);
+        nodeBordersCheckBox.selectedProperty().bindBidirectional(View.nodeBorders);
 
         new AnimationTimer() {
             long prevTime = System.nanoTime();

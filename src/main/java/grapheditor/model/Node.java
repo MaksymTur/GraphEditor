@@ -4,8 +4,6 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.paint.Color;
 
-import static java.lang.Double.POSITIVE_INFINITY;
-import static java.lang.Double.isNaN;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -16,9 +14,12 @@ public class Node {
     public final static DoubleProperty maxSpeed = new SimpleDoubleProperty(30000);
 
     //Properties
+
+    private final int number;
     private final DoubleProperty mass;
     private final DoubleProperty magnetism;
     private final Color color;
+    private final DoubleProperty radius;
 
     //Fields
     private double x;
@@ -29,7 +30,8 @@ public class Node {
     private boolean isFixed;
 
     //Methods
-    public Node(double x, double y, double xSpeed, double ySpeed, DoubleProperty mass, DoubleProperty magnetism) {
+    public Node(int number, double x, double y, double xSpeed, double ySpeed, DoubleProperty mass, DoubleProperty magnetism, DoubleProperty radius) {
+        this.number = number;
         this.x = x;
         this.y = y;
         this.xSpeed = xSpeed;
@@ -39,10 +41,11 @@ public class Node {
         this.color = Color.hsb(Math.random() * 360, 1.0, 1.0);
         isDragged = false;
         isFixed = false;
+        this.radius = radius;
     }
 
-    public Node(double x, double y, DoubleProperty mass, DoubleProperty magnetism) {
-        this(x, y, 0, 0, mass, magnetism);
+    public Node(int number, double x, double y, DoubleProperty mass, DoubleProperty magnetism, DoubleProperty radius) {
+        this(number, x, y, 0, 0, mass, magnetism, radius);
     }
 
     public double getX() {
@@ -118,6 +121,14 @@ public class Node {
         this.setXSpeed(0);
         this.setYSpeed(0);
         this.isFixed = fixed;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public double getRadius() {
+        return radius.get();
     }
 
     public void move(double passed) {
