@@ -19,8 +19,10 @@ public class View {
     //Draw nodes and edges
     public void draw(Graph graph) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
+//        gc.setGlobalAlpha(0.01f);
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//        gc.setGlobalAlpha(1f);
         for (Edge edge : graph.getEdges()) {
             gc.setStroke(Color.BLACK);
             gc.strokeLine(edge.getStartNode().getX(), edge.getStartNode().getY(),
@@ -28,7 +30,8 @@ public class View {
         }
         for (Node node : graph.getNodes()) {
             gc.setFill(node.getColor());
-            gc.fillOval(node.getX() - graph.nodeRadius, node.getY() - graph.nodeRadius, graph.nodeRadius * 2, graph.nodeRadius * 2);
+            //System.out.println(node.getX() + " " + node.getY());
+            gc.fillOval(node.getX() - Graph.nodeRadius.get(), node.getY() - Graph.nodeRadius.get(), Graph.nodeRadius.get() * 2, Graph.nodeRadius.get() * 2);
         }
     }
 }

@@ -3,83 +3,327 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      nodeOrientation="LEFT_TO_RIGHT" prefHeight="550.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/18"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="grapheditor.controller.Controller">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="550.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grapheditor.controller.Controller">
     <children>
-        <VBox fillWidth="false" prefHeight="431.0" prefWidth="155.0" style="-fx-background-color: #898989;">
+        <VBox fillWidth="false" style="-fx-background-color: #898989;">
             <children>
-                <Text fx:id="NodeNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="Node number:" wrappingWidth="142"
-                      VBox.vgrow="ALWAYS">
-                    <VBox.margin>
-                        <Insets bottom="5.0"/>
-                    </VBox.margin>
-                </Text>
-                <TextField fx:id="nodeNumberField" prefHeight="26.0" prefWidth="76.0" text="15" VBox.vgrow="NEVER"/>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edges:" wrappingWidth="122.13670921325684">
-                    <VBox.margin>
-                        <Insets bottom="5.0" top="15.0"/>
-                    </VBox.margin>
-                </Text>
-                <TextArea fx:id="edgesField" prefHeight="133.0" prefWidth="143.0"
-                          text="1 2 1 3 1 4 1 5 2 3 2 4 2 5 3 4 3 5 4 5 5 6 6 7 7 8 8 9 9 10"/>
-                <HBox alignment="TOP_CENTER" prefHeight="52.0" prefWidth="143.0">
-                    <children>
-                        <Button fx:id="generate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
-                                onAction="#handleGenerate" text="Generate" textAlignment="CENTER"/>
-                    </children>
-                    <VBox.margin>
-                        <Insets/>
-                    </VBox.margin>
-                    <padding>
-                        <Insets bottom="15.0" top="15.0"/>
-                    </padding>
-                </HBox>
-                <TitledPane animated="false" text="fizika">
+            <TitledPane fx:id="graphGenPane" animated="false" expanded="false" prefWidth="180.0" text="Graph generation" VBox.vgrow="NEVER">
+              <content>
+                  <ScrollPane fx:id="graphGenScroll" fitToHeight="true" fitToWidth="true" pannable="true">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox>
+                           <children>
+                                  <Text fx:id="NodeNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="Node number:" wrappingWidth="120.39999389648438" />
+                                  <TextField fx:id="nodeNumberField" prefHeight="25.0" prefWidth="120.0" text="15" />
+                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edges:" wrappingWidth="122.13670921325684" />
+                                  <TextArea fx:id="edgesField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="120.0" text="1 2 1 3 1 4 1 5 2 3 2 4 2 5 3 4 3 5 4 5 5 6 6 7 7 8 8 9 9 10" />
+                                  <HBox alignment="TOP_CENTER" fillHeight="false">
+                                      <children>
+                                          <Button fx:id="generate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleGenerate" text="Generate" textAlignment="CENTER" />
+                                      </children>
+                                      <padding>
+                                          <Insets bottom="15.0" top="15.0" />
+                                      </padding>
+                                  </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                    </content>
+                  </ScrollPane>
+              </content>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TitledPane>
+                <TitledPane animated="false" expanded="false" prefWidth="180.0" text="Physics">
+                    <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                                <VBox>
                                     <children>
-                                        <Label prefHeight="18.0" prefWidth="200.0" text="лоховость максима:"
-                                               textOverrun="CENTER_WORD_ELLIPSIS" VBox.vgrow="ALWAYS">
-                                            <font>
-                                                <Font size="10.0"/>
-                                            </font>
-                                        </Label>
-                                        <Slider fx:id="magnetizeSlider" max="1000.0"/>
+                              <TitledPane expanded="false" text="Nodes">
+                                 <content>
+                                    <ScrollPane>
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                          <Label text="Magnetism" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                              <font>
+                                                                  <Font size="10.0" />
+                                                              </font>
+                                                          </Label>
+                                                          <Slider fx:id="magnetizeSlider" max="10000.0" />
+                                                <Label text="Node mass" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="massSlider" max="10000.0" min="1.0" />
+                                                <HBox>
+                                                   <children>
+                                                      <Label text="Bounce" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <CheckBox fx:id="bounceCheckBox" mnemonicParsing="false" />
+                                                   </children>
+                                                </HBox>
+                                                <Label text="Bounce energy keep" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="energyKeepSlider" max="1.0" min="1.0E-5" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </VBox>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </TitledPane>
+                              <TitledPane expanded="false" text="Edges">
+                                 <content>
+                                    <ScrollPane>
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <Label text="Edge length" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="edgeLenSlider" max="10000.0" min="1.0" />
+                                                <Label text="Dumping constant" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="dumpingSlider" max="1000.0" min="1.0" />
+                                                <Label text="Spring start" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="springSlider" max="10000.0" min="1.0" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </VBox>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </TitledPane>
+                              <TitledPane expanded="false" text="Enviroment">
+                                 <content>
+                                    <ScrollPane>
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <Label text="Wall force" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="wallForceSlider" max="1.0E8" min="1.0" />
+                                                <Label text="Air friction" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="airFrictionSlider" max="50.0" min="1.0" />
+                                                <Label text="Gravity" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="gravitySlider" max="1000000.0" min="1.0" />
+                                                <HBox>
+                                                   <children>
+                                                      <Label text="Borders" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <CheckBox fx:id="bordersCheckBox" mnemonicParsing="false" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </VBox>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </TitledPane>
                                     </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                                 </VBox>
-                            </children>
-                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
                     </content>
                 </TitledPane>
-                <TitledPane animated="false" layoutX="20.0" layoutY="295.0" text="апиранс">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
-                    </content>
+                <TitledPane animated="false" expanded="false" layoutX="20.0" layoutY="295.0" prefWidth="180.0" text="Appearance">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <VBox>
+                           <children>
+                              <TitledPane expanded="false" text="Nodes">
+                                 <content>
+                                    <ScrollPane>
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <Label text="Radius" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="nodeRadiusSlider" min="1.0" />
+                                                <Label text="Node mass" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="massSlider1" max="10000.0" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </TitledPane>
+                              <TitledPane expanded="false" text="Edges">
+                                 <content>
+                                    <ScrollPane>
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <Label text="Edge length" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="edgeLenSlider1" max="10000.0" min="1.0" />
+                                                <Label text="Dumping constant" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="dumpingSlider1" max="1000.0" min="1.0" />
+                                                <Label text="Spring start" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="springSlider1" max="10000.0" min="1.0" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </VBox>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </TitledPane>
+                              <TitledPane expanded="false" text="Other">
+                                 <content>
+                                    <ScrollPane>
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <Label text="Wall force" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="wallForceSlider1" max="1.0E8" min="1.0" />
+                                                <Label text="Air friction" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="airFrictionSlider1" max="50.0" min="1.0" />
+                                                <Label text="Gravity" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Slider fx:id="gravitySlider1" max="1000000.0" min="1.0" />
+                                                <HBox>
+                                                   <children>
+                                                      <Label text="Borders" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <CheckBox fx:id="bordersCheck1" mnemonicParsing="false" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </TitledPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
                 </TitledPane>
             </children>
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
         </VBox>
         <VBox fx:id="canvasContainer" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
             <children>
-                <Canvas fx:id="canvas" height="200.0" onMouseClicked="#onDoubleClick" onMouseDragged="#lMouseDragged"
-                        onMousePressed="#lMousePressed" onMouseReleased="#lMouseReleased" width="200.0"
-                        VBox.vgrow="ALWAYS"/>
+                <Canvas fx:id="canvas" height="200.0" onMouseClicked="#onDoubleClick" onMouseDragged="#lMouseDragged" onMousePressed="#lMousePressed" onMouseReleased="#lMouseReleased" width="200.0" VBox.vgrow="ALWAYS" />
             </children>
         </VBox>
     </children>

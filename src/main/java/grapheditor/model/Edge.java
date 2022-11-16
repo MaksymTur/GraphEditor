@@ -1,16 +1,22 @@
 package grapheditor.model;
 
+import javafx.beans.property.DoubleProperty;
+
 //Edge with start node, end node, length, spring constant
 public class Edge {
+    //Properties
+    private final DoubleProperty stretchStart;
+    private final DoubleProperty springStart;
+    private final DoubleProperty springConstant;
+
+    //Fields
     private Node startNode;
     private Node endNode;
-    private double length;
-    private final double springConstant;
-
-    public Edge(Node startNode, Node endNode, double length, double springConstant) {
+    public Edge(Node startNode, Node endNode, DoubleProperty stretchStart, DoubleProperty springStart, DoubleProperty springConstant) {
         this.startNode = startNode;
         this.endNode = endNode;
-        this.length = length;
+        this.stretchStart = stretchStart;
+        this.springStart = springStart;
         this.springConstant = springConstant;
     }
 
@@ -30,18 +36,30 @@ public class Edge {
         this.endNode = endNode;
     }
 
-    public double getLength() {
-        return length;
+    public double getStretchStart() {
+        return stretchStart.get();
     }
 
-    public void setLength(double length) {
-        this.length = length;
+    public void setStretchStart(double stretchStart) {
+        this.stretchStart.set(stretchStart);
     }
 
     public double getSpringConstant() {
-        return springConstant;
+        return springConstant.get();
+    }
+
+    public double getSpringStart() {
+        return springStart.get();
     }
     public double getStretch() {
-        return Node.distance(startNode, endNode) / length;
+        double distance = Node.distance(startNode, endNode);
+        if(distance > getStretchStart()){
+            return distance - getStretchStart();
+        }else if(distance < getSpringStart()){
+            return distance - getSpringStart();
+        }else{
+            return 0;
+        }
     }
+
 }
