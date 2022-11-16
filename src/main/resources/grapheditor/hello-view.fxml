@@ -270,12 +270,12 @@
                                        <content>
                                           <VBox>
                                              <children>
-                                                <Label text="Wall force" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                <Label text="Recalculations per frame" textOverrun="CENTER_WORD_ELLIPSIS">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="wallForceSlider1" max="1.0E8" min="1.0" />
+                                                <Slider fx:id="recalcsPerFrameSlider" min="1.0" />
                                                 <Label text="Air friction" textOverrun="CENTER_WORD_ELLIPSIS">
                                                    <font>
                                                       <Font size="10.0" />

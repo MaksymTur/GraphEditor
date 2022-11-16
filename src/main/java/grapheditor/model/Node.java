@@ -1,17 +1,19 @@
 package grapheditor.model;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.paint.Color;
 
 import static java.lang.Double.POSITIVE_INFINITY;
 import static java.lang.Double.isNaN;
+import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 //Node with x, y, x speed, y speed, mass, color and magnetism
 public class Node {
 
     //Constants
-    private final static double maxSpeed = 30000;
+    public final static DoubleProperty maxSpeed = new SimpleDoubleProperty(30000);
 
     //Properties
     private final DoubleProperty mass;
@@ -76,7 +78,7 @@ public class Node {
 
     public void setXSpeed(double xSpeed) {
         if(!isFixed())
-            this.xSpeed = min(xSpeed, maxSpeed);
+            this.xSpeed = max(min(xSpeed, maxSpeed.get()), maxSpeed.get() * -1);
     }
 
     public double getYSpeed() {
@@ -85,7 +87,7 @@ public class Node {
 
     public void setYSpeed(double ySpeed) {
         if(!isFixed())
-            this.ySpeed = min(ySpeed, maxSpeed);
+            this.ySpeed = max(min(ySpeed, maxSpeed.get()), maxSpeed.get() * -1);
     }
 
     public double getMass() {

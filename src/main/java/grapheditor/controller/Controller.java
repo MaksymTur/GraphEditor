@@ -5,6 +5,8 @@ import grapheditor.model.Graph;
 import grapheditor.model.Node;
 import grapheditor.view.View;
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -17,7 +19,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Controller {
-    private static final int recallsPerFrame = 50;
+    private static final IntegerProperty recalcsPerFrame = new SimpleIntegerProperty(50);
     //Main
     @FXML
     private Canvas canvas;
@@ -64,6 +66,10 @@ public class Controller {
     //////Node
     @FXML
     private Slider nodeRadiusSlider;
+    //////Edge
+    //////Other
+    @FXML
+    private Slider recalcsPerFrameSlider;
 
     //Mouse
     private double mouseXPos;
@@ -170,6 +176,11 @@ public class Controller {
         nodeRadiusSlider.valueProperty().bindBidirectional(Graph.nodeRadius);
         bounceCheckBox.selectedProperty().bindBidirectional(Graph.toBounce);
         energyKeepSlider.valueProperty().bindBidirectional(Graph.energyKeep);
+        recalcsPerFrameSlider.valueProperty().bindBidirectional(recalcsPerFrame);
+        //bind maxSpeed to recalcsPerFrame * 1000
+        recalcsPerFrameSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            Node.maxSpeed.set(newValue.doubleValue() * 100);
+        });
 
 
         new AnimationTimer() {
@@ -180,8 +191,8 @@ public class Controller {
                 double t = (now - prevTime) / 1000000000.0;
                 prevTime = now;
                 if(graph != null) {
-                    for(int i = 0; i < recallsPerFrame; i++) {
-                        graph.recalculate(t / recallsPerFrame);
+                    for(int i = 0; i < recalcsPerFrame.get(); i++) {
+                        graph.recalculate(t / recalcsPerFrame.get());
                     }
                     view.draw(graph);
                 }
