@@ -19,45 +19,52 @@
     <children>
         <VBox fillWidth="false" style="-fx-background-color: #898989;">
             <children>
-            <TitledPane fx:id="graphGenPane" animated="false" expanded="false" prefWidth="180.0" text="Graph generation" VBox.vgrow="NEVER">
-              <content>
-                  <ScrollPane fx:id="graphGenScroll" fitToHeight="true" fitToWidth="true" pannable="true">
-                    <content>
-                        <VBox>
-                           <children>
-                                  <Text fx:id="NodeNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="Node number:" wrappingWidth="120.39999389648438" />
-                                  <TextField fx:id="nodeNumberField" prefHeight="25.0" prefWidth="120.0" text="15" />
-                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edges:" wrappingWidth="122.13670921325684" />
-                                  <TextArea fx:id="edgesField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="120.0" text="1 2 1 3 1 4 1 5 2 3 2 4 2 5 3 4 3 5 4 5 5 6 6 7 7 8 8 9 9 10" />
-                                  <HBox alignment="TOP_CENTER" fillHeight="false">
-                                      <children>
-                                          <Button fx:id="generate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleGenerate" text="Generate" textAlignment="CENTER" />
-                                      </children>
-                                      <padding>
+            <ScrollPane fx:id="menuScroll">
+               <content>
+                  <VBox>
+                     <children>
+                        <TitledPane fx:id="graphGenPane" animated="false" expanded="false" prefWidth="180.0" text="Graph generation">
+                          <content>
+                              <VBox>
+                                 <children>
+                                        <Text fx:id="NodeNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="Node number:" wrappingWidth="120.39999389648438" />
+                                        <TextField fx:id="nodeNumberField" prefHeight="25.0" prefWidth="120.0" text="15" />
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edges:" wrappingWidth="122.13670921325684" />
+                                        <TextArea fx:id="edgesField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="120.0" text="1 2 1 3 1 4 1 5 2 3 2 4 2 5 3 4 3 5 4 5 5 6 6 7 7 8 8 9 9 10" />
+                                        <HBox alignment="TOP_CENTER" fillHeight="false">
+                                            <children>
+                                                <Button fx:id="generate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleGenerate" text="Generate" textAlignment="CENTER" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="15.0" top="15.0" />
+                                            </padding>
+                                        </HBox>
+                                    <Label text="Random edges" textOverrun="CENTER_WORD_ELLIPSIS">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Slider fx:id="randomEdgesSlider" max="10000.0" />
+                                    <HBox alignment="TOP_CENTER" fillHeight="false">
+                                       <children>
+                                          <Button fx:id="massRandomizeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleRandomizeMass" text="Randomize masses" textAlignment="CENTER" />
+                                       </children>
+                                       <padding>
                                           <Insets bottom="15.0" top="15.0" />
-                                      </padding>
-                                  </HBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                    </content>
-                  </ScrollPane>
-              </content>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </TitledPane>
-                <TitledPane animated="false" expanded="false" prefWidth="180.0" text="Physics">
-                    <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                                <VBox>
-                                    <children>
-                              <TitledPane expanded="false" text="Nodes">
-                                 <content>
-                                    <ScrollPane>
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                          </content>
+                        </TitledPane>
+                            <TitledPane animated="false" expanded="false" prefWidth="180.0" text="Physics">
+                                <content>
+                                      <VBox>
+                                          <children>
+                                    <TitledPane expanded="false" text="Nodes">
                                        <content>
                                           <VBox>
                                              <children>
@@ -66,13 +73,13 @@
                                                                   <Font size="10.0" />
                                                               </font>
                                                           </Label>
-                                                          <Slider fx:id="magnetizeSlider" max="10000.0" />
+                                                          <Slider fx:id="magnetizeSlider" max="100000.0" />
                                                 <Label text="Node mass" textOverrun="CENTER_WORD_ELLIPSIS">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="massSlider" max="10000.0" min="1.0" />
+                                                <Slider fx:id="massSlider" max="1000.0" min="10.0" />
                                                 <HBox>
                                                    <children>
                                                       <Label text="Bounce" textOverrun="CENTER_WORD_ELLIPSIS">
@@ -98,15 +105,11 @@
                                              </padding>
                                           </VBox>
                                        </content>
-                                    </ScrollPane>
-                                 </content>
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </TitledPane>
-                              <TitledPane expanded="false" text="Edges">
-                                 <content>
-                                    <ScrollPane>
+                                       <font>
+                                          <Font size="9.0" />
+                                       </font>
+                                    </TitledPane>
+                                    <TitledPane expanded="false" text="Edges">
                                        <content>
                                           <VBox>
                                              <children>
@@ -115,13 +118,13 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="edgeLenSlider" max="10000.0" min="1.0" />
+                                                <Slider fx:id="edgeLenSlider" max="300.0" min="2.0" />
                                                 <Label text="Dumping constant" textOverrun="CENTER_WORD_ELLIPSIS">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="dumpingSlider" max="1000.0" min="1.0" />
+                                                <Slider fx:id="dumpingSlider" max="100000.0" min="100.0" />
                                                 <Label text="Spring start" textOverrun="CENTER_WORD_ELLIPSIS">
                                                    <font>
                                                       <Font size="10.0" />
@@ -134,15 +137,11 @@
                                              </padding>
                                           </VBox>
                                        </content>
-                                    </ScrollPane>
-                                 </content>
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </TitledPane>
-                              <TitledPane expanded="false" text="Enviroment">
-                                 <content>
-                                    <ScrollPane>
+                                       <font>
+                                          <Font size="9.0" />
+                                       </font>
+                                    </TitledPane>
+                                    <TitledPane expanded="false" text="Enviroment">
                                        <content>
                                           <VBox>
                                              <children>
@@ -151,19 +150,19 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="wallForceSlider" max="1.0E8" min="1.0" />
+                                                <Slider fx:id="wallForceSlider" max="3.0E9" min="1.0" />
                                                 <Label text="Air friction" textOverrun="CENTER_WORD_ELLIPSIS">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="airFrictionSlider" max="50.0" min="1.0" />
+                                                <Slider fx:id="airFrictionSlider" max="1000.0" />
                                                 <Label text="Gravity" textOverrun="CENTER_WORD_ELLIPSIS">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="gravitySlider" max="1000000.0" min="1.0" />
+                                                <Slider fx:id="gravitySlider" max="10000.0" min="1.0" />
                                                 <HBox>
                                                    <children>
                                                       <Label text="Borders" textOverrun="CENTER_WORD_ELLIPSIS">
@@ -180,30 +179,22 @@
                                              </padding>
                                           </VBox>
                                        </content>
-                                    </ScrollPane>
-                                 </content>
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </TitledPane>
-                                    </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                                </VBox>
-                     </content>
-                  </ScrollPane>
-                    </content>
-                </TitledPane>
-                <TitledPane animated="false" expanded="false" layoutX="20.0" layoutY="295.0" prefWidth="180.0" text="Appearance">
-               <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                        <VBox>
-                           <children>
-                              <TitledPane expanded="false" text="Nodes">
-                                 <content>
-                                    <ScrollPane>
+                                       <font>
+                                          <Font size="9.0" />
+                                       </font>
+                                    </TitledPane>
+                                          </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                      </VBox>
+                                </content>
+                            </TitledPane>
+                            <TitledPane animated="false" expanded="false" prefWidth="180.0" text="Appearance">
+                           <content>
+                              <VBox>
+                                 <children>
+                                    <TitledPane expanded="false" text="Nodes">
                                        <content>
                                           <VBox>
                                              <children>
@@ -261,15 +252,11 @@
                                              </children>
                                           </VBox>
                                        </content>
-                                    </ScrollPane>
-                                 </content>
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </TitledPane>
-                              <TitledPane expanded="false" text="Edges">
-                                 <content>
-                                    <ScrollPane>
+                                       <font>
+                                          <Font size="9.0" />
+                                       </font>
+                                    </TitledPane>
+                                    <TitledPane expanded="false" text="Edges">
                                        <content>
                                           <VBox>
                                              <children>
@@ -278,7 +265,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
-                                                <Slider fx:id="edgeWidthSlider" max="10000.0" min="1.0" />
+                                                <Slider fx:id="edgeWidthSlider" max="10.0" min="1.0" />
                                                 <HBox>
                                                    <children>
                                                       <Label text="Show edges" textOverrun="CENTER_WORD_ELLIPSIS">
@@ -292,21 +279,30 @@
                                                       <CheckBox fx:id="showEdgesCheckBox" mnemonicParsing="false" />
                                                    </children>
                                                 </HBox>
+                                                <HBox>
+                                                   <children>
+                                                      <Label text="Chromatic edges" textOverrun="CENTER_WORD_ELLIPSIS">
+                                                         <font>
+                                                            <Font size="10.0" />
+                                                         </font>
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <CheckBox fx:id="chromaticEdgesCheckBox" mnemonicParsing="false" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </padding>
                                           </VBox>
                                        </content>
-                                    </ScrollPane>
-                                 </content>
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </TitledPane>
-                              <TitledPane expanded="false" text="Other">
-                                 <content>
-                                    <ScrollPane>
+                                       <font>
+                                          <Font size="9.0" />
+                                       </font>
+                                    </TitledPane>
+                                    <TitledPane expanded="false" text="Other">
                                        <content>
                                           <VBox>
                                              <children>
@@ -316,46 +312,24 @@
                                                    </font>
                                                 </Label>
                                                 <Slider fx:id="recalcsPerFrameSlider" min="1.0" />
-                                                <Label text="Air friction" textOverrun="CENTER_WORD_ELLIPSIS">
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <Slider fx:id="airFrictionSlider1" max="50.0" min="1.0" />
-                                                <Label text="Gravity" textOverrun="CENTER_WORD_ELLIPSIS">
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
-                                                </Label>
-                                                <Slider fx:id="gravitySlider1" max="1000000.0" min="1.0" />
-                                                <HBox>
-                                                   <children>
-                                                      <Label text="Borders" textOverrun="CENTER_WORD_ELLIPSIS">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <CheckBox fx:id="bordersCheck1" mnemonicParsing="false" />
-                                                   </children>
-                                                </HBox>
                                              </children>
                                           </VBox>
                                        </content>
-                                    </ScrollPane>
-                                 </content>
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </TitledPane>
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
+                                       <font>
+                                          <Font size="9.0" />
+                                       </font>
+                                    </TitledPane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                            </TitledPane>
+                     </children>
+                  </VBox>
                </content>
-                </TitledPane>
+            </ScrollPane>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

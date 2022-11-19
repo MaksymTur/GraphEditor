@@ -17,20 +17,20 @@ public class Graph {
 
     //Properties
     ////Node
-    public final static DoubleProperty defaultNodeMass = new SimpleDoubleProperty(1);
-    public final static DoubleProperty defaultNodeMagnetism = new SimpleDoubleProperty(500);
+    public final static DoubleProperty defaultNodeMass = new SimpleDoubleProperty(100);
+    public final static DoubleProperty defaultNodeMagnetism = new SimpleDoubleProperty(50000);
     public final static BooleanProperty toBounce = new SimpleBooleanProperty(true);
     ////Edge
-    public final static DoubleProperty defaultEdgeLength = new SimpleDoubleProperty(40);
-    public final static DoubleProperty defaultEdgeDumpingConstant = new SimpleDoubleProperty(45);
+    public final static DoubleProperty defaultEdgeLength = new SimpleDoubleProperty(20);
+    public final static DoubleProperty defaultEdgeDumpingConstant = new SimpleDoubleProperty(10000);
     public final static DoubleProperty defaultSpringStart = new SimpleDoubleProperty(0);
     ////Environment
-    public final static DoubleProperty wallForce = new SimpleDoubleProperty(100000);
-    public final static DoubleProperty airFriction = new SimpleDoubleProperty(1);
-    public final static DoubleProperty g = new SimpleDoubleProperty(1000);
+    public final static DoubleProperty wallForce = new SimpleDoubleProperty(500000000);
+    public final static DoubleProperty airFriction = new SimpleDoubleProperty(1000);
+    public final static DoubleProperty g = new SimpleDoubleProperty(0);
     public final static BooleanProperty bordersOn = new SimpleBooleanProperty(true);
     ////Appearance
-    public final static DoubleProperty nodeRadius = new SimpleDoubleProperty(8);
+    public final static DoubleProperty nodeRadius = new SimpleDoubleProperty(10);
     public final static DoubleProperty energyKeep = new SimpleDoubleProperty(0.9);
 
     //Fields
@@ -76,6 +76,13 @@ public class Graph {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+    public void addEdge(Edge edge) {
+        edges.add(edge);
+    }
+
+    public void removeLastEdge() {
+        edges.remove(edges.size() - 1);
     }
 
     //Recalculate node accelerations and speeds
@@ -130,7 +137,7 @@ public class Graph {
             for (int i = 0; i < nodes.size(); i++) {
                 for (int j = i + 1; j < nodes.size(); j++) {
                     double distance = Node.distance(nodes.get(i), nodes.get(j));
-                    if(distance < 2 * nodeRadius.get()){
+                    if(distance < nodes.get(i).getRadius() + nodes.get(j).getRadius()){
                         double angle = Node.angle(nodes.get(i), nodes.get(j));
                         double u1 = nodes.get(i).getXSpeed() * Math.cos(angle) + nodes.get(i).getYSpeed() * Math.sin(angle);
                         double u2 = nodes.get(j).getXSpeed() * Math.cos(angle) + nodes.get(j).getYSpeed() * Math.sin(angle);
@@ -189,9 +196,9 @@ public class Graph {
                 for(Node node1 : nodes){
                     if(node != node1){
                         double distance = Node.distance(node, node1);
-                        if(distance < 2 * nodeRadius.get()){
+                        if(distance < node.getRadius() + node1.getRadius()){
                             double angle = Node.angle(node, node1);
-                            double dist = (nodeRadius.get() - distance / 2);
+                            double dist = (node.getRadius() + node1.getRadius() - distance) / 2;
                             node.setPhysicX(node.getX() - dist * Math.cos(angle));
                             node.setPhysicY(node.getY() - dist * Math.sin(angle));
                             node1.setPhysicX(node1.getX() + dist * Math.cos(angle));
@@ -203,20 +210,20 @@ public class Graph {
         }
         for (Node node : nodes) {
             if (bordersOn.get()) {
-                if (node.getX() - nodeRadius.get() < 0) {
-                    node.setX(nodeRadius.get());
+                if (node.getX() - node.getRadius() < 0) {
+                    node.setX(node.getRadius());
                     node.setXSpeed(-node.getXSpeed() * sqrt(energyKeep.get()));
                 }
-                if (node.getX() + nodeRadius.get() > width) {
-                    node.setX(width - nodeRadius.get());
+                if (node.getX() + node.getRadius() > width) {
+                    node.setX(width - node.getRadius());
                     node.setXSpeed(-node.getXSpeed() * sqrt(energyKeep.get()));
                 }
-                if (node.getY() - nodeRadius.get() < 0) {
-                    node.setY(nodeRadius.get());
+                if (node.getY() - node.getRadius() < 0) {
+                    node.setY(node.getRadius());
                     node.setYSpeed(-node.getYSpeed() * sqrt(energyKeep.get()));
                 }
-                if (node.getY() + nodeRadius.get() > height) {
-                    node.setY(height - nodeRadius.get());
+                if (node.getY() + node.getRadius() > height) {
+                    node.setY(height - node.getRadius());
                     node.setYSpeed(-node.getYSpeed() * sqrt(energyKeep.get()));
                 }
             }

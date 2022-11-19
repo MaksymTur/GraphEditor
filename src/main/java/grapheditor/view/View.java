@@ -10,6 +10,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -20,13 +23,14 @@ public class View {
     private final Canvas canvas;
 
     //Nodes
-    public static final BooleanProperty chromatic = new SimpleBooleanProperty(false);
-    public static final BooleanProperty showNumbers = new SimpleBooleanProperty(false);
-    public static final BooleanProperty nodeBorders = new SimpleBooleanProperty(false);
+    public static final BooleanProperty chromatic = new SimpleBooleanProperty(true);
+    public static final BooleanProperty showNumbers = new SimpleBooleanProperty(true);
+    public static final BooleanProperty nodeBorders = new SimpleBooleanProperty(true);
     public static final IntegerProperty traceSize = new SimpleIntegerProperty(1);
     //Edges
     public static final IntegerProperty edgeWidth = new SimpleIntegerProperty(1);
     public static final BooleanProperty showEdges = new SimpleBooleanProperty(true);
+    public static final BooleanProperty chromaticEdges = new SimpleBooleanProperty(false);
 
     private static class NodeTrace {
         double x;
@@ -60,10 +64,12 @@ public class View {
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         //draw traces
+        while (traces.size() > traceSize.get()) {
+            traces.removeFirst();
+        }
         int i = traces.size();
         for (var tracesI : traces) {
             i -= 1;
-            //gc.setGlobalAlpha(1.0 - (double) i / (traceSize.get()+1));
             for (NodeTrace trace : tracesI) {
                 gc.setFill(Color.hsb(trace.color.getHue(), trace.color.getSaturation() * (1.0 - (double) i / (traceSize.get() + 1)), trace.color.getBrightness()));
                 gc.fillOval(trace.x - trace.radius, trace.y - trace.radius, trace.radius * 2, trace.radius * 2);
@@ -76,6 +82,14 @@ public class View {
         for (Edge edge : graph.getEdges()) {
             if (showEdges.get()) {
                 gc.setLineWidth(edgeWidth.get());
+                if(chromaticEdges.get()){
+                    LinearGradient gradient = new LinearGradient(edge.getStartNode().getX(), edge.getStartNode().getY(),
+                            edge.getEndNode().getX(), edge.getEndNode().getY(),
+                            false, CycleMethod.REFLECT, new Stop(0, edge.getStartNode().getColor()), new Stop(1, edge.getEndNode().getColor()));
+                    gc.setStroke(gradient);
+                } else {
+                    gc.setStroke(Color.BLACK);
+                }
                 gc.strokeLine(edge.getStartNode().getX(), edge.getStartNode().getY(), edge.getEndNode().getX(), edge.getEndNode().getY());
             }
         }
@@ -108,10 +122,5 @@ public class View {
         }
         //add nodes to traces
         traces.addLast(graph.getNodes().stream().map(NodeTrace::new).toList());
-        while (traces.size() > traceSize.get()) {
-            traces.removeFirst();
-        }
-//            gc.setFill(node.getColor());
-//            gc.fillOval(node.getX() - Graph.nodeRadius.get(), node.getY() - Graph.nodeRadius.get(), Graph.nodeRadius.get() * 2, Graph.nodeRadius.get() * 2);
     }
 }

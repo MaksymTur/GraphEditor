@@ -51,6 +51,9 @@ public class Edge {
     public double getSpringStart() {
         return springStart.get();
     }
+    public Edge reverse(){
+        return new Edge(endNode, startNode, stretchStart, springStart, springConstant);
+    }
     public double getStretch() {
         double distance = Node.distance(startNode, endNode);
         if(distance > getStretchStart()){

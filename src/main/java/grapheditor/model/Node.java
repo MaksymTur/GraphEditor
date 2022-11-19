@@ -16,10 +16,10 @@ public class Node {
     //Properties
 
     private final int number;
-    private final DoubleProperty mass;
+    private DoubleProperty mass;
     private final DoubleProperty magnetism;
     private final Color color;
-    private final DoubleProperty radius;
+    private DoubleProperty radius;
 
     //Fields
     private double x;
@@ -131,6 +131,13 @@ public class Node {
         return radius.get();
     }
 
+    public void setMass(double mass) {
+        this.mass = new SimpleDoubleProperty(mass);
+    }
+
+    public void setRadius(double radius) {
+        this.radius = new SimpleDoubleProperty(radius);
+    }
     public void move(double passed) {
         setPhysicX(getX() + xSpeed * passed);
         setPhysicY(getY() + ySpeed * passed);
