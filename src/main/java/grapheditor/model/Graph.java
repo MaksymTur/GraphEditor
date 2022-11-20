@@ -191,23 +191,23 @@ public class Graph {
             node.move(passed);
         }
         //forbid node intersection
-        if(toBounce.get()){
-            for(Node node : nodes){
-                for(Node node1 : nodes){
-                    if(node != node1){
-                        double distance = Node.distance(node, node1);
-                        if(distance < node.getRadius() + node1.getRadius()){
-                            double angle = Node.angle(node, node1);
-                            double dist = (node.getRadius() + node1.getRadius() - distance) / 2;
-                            node.setPhysicX(node.getX() - dist * Math.cos(angle));
-                            node.setPhysicY(node.getY() - dist * Math.sin(angle));
-                            node1.setPhysicX(node1.getX() + dist * Math.cos(angle));
-                            node1.setPhysicY(node1.getY() + dist * Math.sin(angle));
-                        }
-                    }
-                }
-            }
-        }
+//        if(toBounce.get()){
+//            for(Node node : nodes){
+//                for(Node node1 : nodes){
+//                    if(node != node1){
+//                        double distance = Node.distance(node, node1);
+//                        if(distance < node.getRadius() + node1.getRadius()){
+//                            double angle = Node.angle(node, node1);
+//                            double dist = (node.getRadius() + node1.getRadius() - distance) / 2;
+//                            node.setPhysicX(node.getX() - dist * Math.cos(angle));
+//                            node.setPhysicY(node.getY() - dist * Math.sin(angle));
+//                            node1.setPhysicX(node1.getX() + dist * Math.cos(angle));
+//                            node1.setPhysicY(node1.getY() + dist * Math.sin(angle));
+//                        }
+//                    }
+//                }
+//            }
+//        }
         for (Node node : nodes) {
             if (bordersOn.get()) {
                 if (node.getX() - node.getRadius() < 0) {
