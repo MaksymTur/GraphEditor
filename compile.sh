@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mvn compile
+./mvnw compile
